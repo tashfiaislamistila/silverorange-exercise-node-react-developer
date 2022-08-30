@@ -1,7 +1,14 @@
 import useRepositories from '../useRepositories';
 
 export default function Repositories() {
-  const [repos] = useRepositories();
+  const [repos] = useRepositories(); //using custom hook for getting all the repositories
+
+  //----------------------------- language -------------------//
+  const languages = repos.map((r: { language: any }) => r.language); //making a new array by extracting the language from the repositories
+  const uniqueLanguage = languages.filter((lan: any, index: any) => {
+    return languages.indexOf(lan) === index;
+  });
+  console.log(uniqueLanguage);
 
   return (
     <div className="overflow-x-auto">
