@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 export default function useRepositories() {
   const [repos, setRepos] = useState<any>([]);
+  const [filteredRepos, setFilteredRepos] = useState<any>([]); //filteredRepos state called to copy the repositories
   useEffect(() => {
     fetch('http://localhost:4000/repos') //fetching data from the api created earlier in A
       .then((res) => res.json())
@@ -12,7 +13,8 @@ export default function useRepositories() {
           );
         });
         setRepos(sortedData);
+        setFilteredRepos(sortedData); //repositories are copied
       });
   }, []);
-  return [repos];
+  return [repos, filteredRepos, setFilteredRepos];
 }
