@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 export default function RepositoryDetailsModal(props: any) {
-  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { updated_at, full_name } = props;
   //---------------------------Readme---------------------------->
   const [content, setContent] = useState<any>('');
   useEffect(() => {
+    // Fetching readme from the provided API
     fetch(`https://raw.githubusercontent.com/${full_name}/master/README.md`)
       .then((res) => {
         return res.text();
@@ -15,6 +16,8 @@ export default function RepositoryDetailsModal(props: any) {
   }, [full_name]);
 
   //---------------------------Retrieving Sha---------------------------->
+  //Sha was not included in the GIT Api. A seperate API was retrieved from Githubs website and implemented below. sha is acquired first.
+
   const [sha, setSha] = useState<any>({});
   useEffect(() => {
     fetch(`https://api.github.com/repos/${full_name}/git/trees/master`)
@@ -22,6 +25,7 @@ export default function RepositoryDetailsModal(props: any) {
       .then((data) => setSha(data?.sha));
   }, [full_name]);
   //---------------------------Retrieving Commit Details---------------------------->
+  //With the retrieved sha, another api is fetched from github which contains the author and commit data
   const [message, setMessage] = useState('');
   const [author, setAuthor] = useState('');
   useEffect(() => {

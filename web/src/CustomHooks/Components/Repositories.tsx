@@ -17,7 +17,7 @@ export default function Repositories() {
   const handleLanguageChange = (event: any) => {
     //language is saved in the state
     setSelectedLanguage(event.currentTarget.value);
-    console.log(selectedLanguage);
+    console.error(selectedLanguage);
 
     const filteredLanguageRepo = (repos as unknown as any[]).filter((repo) => {
       //new array is created with the data of the specific filtered language
@@ -43,12 +43,12 @@ export default function Repositories() {
         </thead>
         <tbody>
           {(filteredRepos as unknown as any[]).map((repo) => (
-            <tr key={repo.id}>
-              <td>{repo.name}</td>
-              <td>{repo.description}</td>
-              <td>{repo.language}</td>
-              <td>{repo.forks_count}</td>
-              <td>{repo.created_at}</td>
+            <tr key={repo?.id}>
+              <td>{repo?.name ? repo?.name : 'N/A'}</td>
+              <td>{repo?.description ? repo?.description : 'N/A'}</td>
+              <td>{repo?.language ? repo?.language : 'N/A'}</td>
+              <td>{repo?.forks_count ? repo?.forks_count : 'N/A'}</td>
+              <td>{repo?.created_at ? repo?.created_at : 'N/A'}</td>
               <td>
                 <label
                   onClick={() => setSelectedRepo(repo)}
@@ -77,6 +77,12 @@ export default function Repositories() {
           {u}
         </button>
       ))}
+      <button
+        onClick={() => setFilteredRepos(repos)} //event handler added to call the function
+        className="mx-5 btn btn-success"
+      >
+        All
+      </button>
     </div>
   );
 }
