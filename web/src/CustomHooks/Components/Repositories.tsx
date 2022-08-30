@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useRepositories from '../useRepositories';
+import RepositoryDetailsModal from './RepositoryDetailsModal';
 
 export default function Repositories() {
   const [repos, filteredRepos, setFilteredRepos] = useRepositories(); //using custom hook for getting all the repositories
@@ -25,8 +26,8 @@ export default function Repositories() {
     setFilteredRepos(filteredLanguageRepo);
   };
   //----------------------------- modal -------------------//
-  const [selectedRepo, setSelectedRepo] = useState({});
-  console.log(selectedRepo);
+  const [selectedRepo, setSelectedRepo] = useState<any>({});
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-compact w-full">
@@ -49,7 +50,6 @@ export default function Repositories() {
               <td>{repo.forks_count}</td>
               <td>{repo.created_at}</td>
               <td>
-                {/* modal eventhandler created */}
                 <label
                   onClick={() => setSelectedRepo(repo)}
                   htmlFor="my-modal-3"
@@ -60,6 +60,9 @@ export default function Repositories() {
               </td>
             </tr>
           ))}
+          {selectedRepo && (
+            <RepositoryDetailsModal key={selectedRepo.id} {...selectedRepo} />
+          )}
         </tbody>
       </table>
       <h1 className="my-5 font-bold">Filter by Language</h1>
