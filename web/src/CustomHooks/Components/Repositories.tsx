@@ -24,7 +24,9 @@ export default function Repositories() {
     });
     setFilteredRepos(filteredLanguageRepo);
   };
-
+  //----------------------------- modal -------------------//
+  const [selectedRepo, setSelectedRepo] = useState({});
+  console.log(selectedRepo);
   return (
     <div className="overflow-x-auto">
       <table className="table table-compact w-full">
@@ -35,6 +37,7 @@ export default function Repositories() {
             <th>Language</th>
             <th>Fork Count</th>
             <th>Created</th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -45,6 +48,16 @@ export default function Repositories() {
               <td>{repo.language}</td>
               <td>{repo.forks_count}</td>
               <td>{repo.created_at}</td>
+              <td>
+                {/* modal eventhandler created */}
+                <label
+                  onClick={() => setSelectedRepo(repo)}
+                  htmlFor="my-modal-3"
+                  className="btn btn-success"
+                >
+                  Details
+                </label>
+              </td>
             </tr>
           ))}
         </tbody>
