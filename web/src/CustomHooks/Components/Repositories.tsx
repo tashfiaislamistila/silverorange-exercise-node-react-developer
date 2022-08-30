@@ -8,7 +8,6 @@ export default function Repositories() {
   const uniqueLanguage = languages.filter((lan: any, index: any) => {
     return languages.indexOf(lan) === index;
   });
-  console.log(uniqueLanguage);
 
   return (
     <div className="overflow-x-auto">
@@ -34,6 +33,12 @@ export default function Repositories() {
           ))}
         </tbody>
       </table>
+      <h1 className="my-5 font-bold">Filter by Language</h1>
+      {(uniqueLanguage as unknown as any[]).map((u) => (
+        <button key={u} className="mx-5 btn btn-success">
+          {u}
+        </button>
+      ))}
     </div>
   );
 }
